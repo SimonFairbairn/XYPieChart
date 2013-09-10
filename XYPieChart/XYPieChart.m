@@ -524,6 +524,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:_pieView];
     NSInteger selectedIndex = [self getCurrentSelectedOnTouch:point];
+    
+    
     [self notifyDelegateOfSelectionChangeFrom:_selectedSliceIndex to:selectedIndex];
     [self touchesCancelled:touches withEvent:event];
 }
@@ -543,6 +545,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)notifyDelegateOfSelectionChangeFrom:(NSUInteger)previousSelection to:(NSUInteger)newSelection
 {
+    
+    
     if (previousSelection != newSelection){
         if((int)previousSelection != -1){
             NSUInteger tempPre = previousSelection;
@@ -597,10 +601,12 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         layer.position = newPos;
         layer.isSelected = YES;
     }
+    _selectedSliceIndex = index;
 }
 
 - (void)setSliceDeselectedAtIndex:(NSInteger)index
 {
+
     if(_selectedSliceOffsetRadius <= 0)
         return;
     SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:index];
@@ -608,6 +614,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         layer.position = CGPointMake(0, 0);
         layer.isSelected = NO;
     }
+    _selectedSliceIndex = -1;
 }
 
 #pragma mark - Pie Layer Creation Method

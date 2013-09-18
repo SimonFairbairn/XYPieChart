@@ -40,10 +40,10 @@
 
 @protocol XYPieChartDelegate <NSObject>
 @optional
-- (void)pieChart:(XYPieChart *)pieChart willSelectSliceAtIndex:(NSUInteger)index;
-- (void)pieChart:(XYPieChart *)pieChart didSelectSliceAtIndex:(NSUInteger)index;
-- (void)pieChart:(XYPieChart *)pieChart willDeselectSliceAtIndex:(NSUInteger)index;
-- (void)pieChart:(XYPieChart *)pieChart didDeselectSliceAtIndex:(NSUInteger)index;
+- (void)pieChart:(XYPieChart *)pieChart willSelectSliceAtIndex:(NSInteger)index;
+- (void)pieChart:(XYPieChart *)pieChart didSelectSliceAtIndex:(NSInteger)index;
+- (void)pieChart:(XYPieChart *)pieChart willDeselectSliceAtIndex:(NSInteger)index;
+- (void)pieChart:(XYPieChart *)pieChart didDeselectSliceAtIndex:(NSInteger)index;
 @end
 
 @interface XYPieChart : UIView

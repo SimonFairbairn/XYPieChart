@@ -548,14 +548,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     
     
     if (previousSelection != newSelection){
+        
+        NSUInteger tempPre = previousSelection;
         if((int)previousSelection != -1){
-            NSUInteger tempPre = previousSelection;
+
             if ([_delegate respondsToSelector:@selector(pieChart:willDeselectSliceAtIndex:)])
                 [_delegate pieChart:self willDeselectSliceAtIndex:tempPre];
             [self setSliceDeselectedAtIndex:tempPre];
-            previousSelection = newSelection;
-            if([_delegate respondsToSelector:@selector(pieChart:didDeselectSliceAtIndex:)])
-                [_delegate pieChart:self didDeselectSliceAtIndex:tempPre];
+
         }
         
         if ((int)newSelection != -1){
@@ -563,9 +563,19 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
                 [_delegate pieChart:self willSelectSliceAtIndex:newSelection];
             [self setSliceSelectedAtIndex:newSelection];
             _selectedSliceIndex = newSelection;
+        }
+        
+        if ((int)previousSelection != -1 ) {
+            if([_delegate respondsToSelector:@selector(pieChart:didDeselectSliceAtIndex:)])
+                [_delegate pieChart:self didDeselectSliceAtIndex:tempPre];
+            previousSelection = newSelection;            
+        }
+        if ( (int) newSelection != -1 ) {
             if([_delegate respondsToSelector:@selector(pieChart:didSelectSliceAtIndex:)])
                 [_delegate pieChart:self didSelectSliceAtIndex:newSelection];
         }
+            
+        
     }else if ((int)newSelection != -1){
         SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:newSelection];
         if(_selectedSliceOffsetRadius > 0 && layer){

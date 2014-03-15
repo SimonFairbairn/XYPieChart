@@ -347,7 +347,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
                 else if(diff > 0)
                 {
                     layer = [self createSliceLayer];
-                    [parentLayer insertSublayer:layer atIndex:index];
+                    [parentLayer insertSublayer:layer atIndex:(int)index];
                     diff--;
                 }
                 else if(diff < 0)

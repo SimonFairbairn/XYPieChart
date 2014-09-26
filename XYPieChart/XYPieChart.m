@@ -569,7 +569,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         if ((int)previousSelection != -1 ) {
             if([_delegate respondsToSelector:@selector(pieChart:didDeselectSliceAtIndex:)])
                 [_delegate pieChart:self didDeselectSliceAtIndex:tempPre];
-            previousSelection = newSelection;            
+//            previousSelection = newSelection;            
         }
         if ( (int) newSelection != -1 ) {
             if([_delegate respondsToSelector:@selector(pieChart:didSelectSliceAtIndex:)])

@@ -29,6 +29,7 @@
 #import <UIKit/UIKit.h>
 
 @class XYPieChart;
+
 @protocol XYPieChartDataSource <NSObject>
 @required
 - (NSUInteger)numberOfSlicesInPieChart:(XYPieChart *)pieChart;

@@ -29,7 +29,10 @@
 #import "XYPieChart.h"
 #import <QuartzCore/QuartzCore.h>
 
+// Slice Layer Interface
+
 @interface SliceLayer : CAShapeLayer
+
 @property (nonatomic, assign) CGFloat   value;
 @property (nonatomic, assign) CGFloat   percentage;
 @property (nonatomic, assign) double    startAngle;
@@ -37,7 +40,10 @@
 @property (nonatomic, assign) BOOL      isSelected;
 @property (nonatomic, strong) NSString  *text;
 - (void)createArcAnimationForKey:(NSString *)key fromValue:(NSNumber *)from toValue:(NSNumber *)to Delegate:(id)delegate;
+
 @end
+
+// Slice Layer Implementation
 
 @implementation SliceLayer
 @synthesize text = _text;
@@ -46,12 +52,12 @@
 @synthesize startAngle = _startAngle;
 @synthesize endAngle = _endAngle;
 @synthesize isSelected = _isSelected;
-- (NSString*)description
-{
+
+- (NSString*)description {
     return [NSString stringWithFormat:@"value:%f, percentage:%0.0f, start:%f, end:%f", _value, _percentage, _startAngle/M_PI*180, _endAngle/M_PI*180];
 }
-+ (BOOL)needsDisplayForKey:(NSString *)key 
-{
+
++ (BOOL)needsDisplayForKey:(NSString *)key  {
     if ([key isEqualToString:@"startAngle"] || [key isEqualToString:@"endAngle"]) {
         return YES;
     }
@@ -59,8 +65,8 @@
         return [super needsDisplayForKey:key];
     }
 }
-- (id)initWithLayer:(id)layer
-{
+
+- (id)initWithLayer:(id)layer {
     if (self = [super initWithLayer:layer])
     {
         if ([layer isKindOfClass:[SliceLayer class]]) {
@@ -70,8 +76,8 @@
     }
     return self;
 }
-- (void)createArcAnimationForKey:(NSString *)key fromValue:(NSNumber *)from toValue:(NSNumber *)to Delegate:(id)delegate
-{
+
+- (void)createArcAnimationForKey:(NSString *)key fromValue:(NSNumber *)from toValue:(NSNumber *)to Delegate:(id)delegate {
     CABasicAnimation *arcAnimation = [CABasicAnimation animationWithKeyPath:key];
     NSNumber *currentAngle = [[self presentationLayer] valueForKey:key];
     if(!currentAngle) currentAngle = from;
@@ -82,7 +88,10 @@
     [self addAnimation:arcAnimation forKey:key];
     [self setValue:to forKey:key];
 }
+
 @end
+
+
 
 @interface XYPieChart (Private) 
 - (void)updateTimerFired:(NSTimer *)timer;
@@ -200,6 +209,13 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         _showPercentage = YES;
     }
     return self;
+}
+
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    self.pieRadius = MIN(self.layer.bounds.size.width/2, self.layer.bounds.size.height/2) - 10;
+    self.pieCenter = CGPointMake(self.layer.bounds.size.width/2, self.layer.bounds.size.height/2);
+    
 }
 
 - (void)setPieCenter:(CGPoint)pieCenter

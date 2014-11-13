@@ -215,7 +215,6 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [super layoutSubviews];
     self.pieRadius = MIN(self.layer.bounds.size.width/2, self.layer.bounds.size.height/2) - 10;
     self.pieCenter = CGPointMake(self.layer.bounds.size.width/2, self.layer.bounds.size.height/2);
-    
 }
 
 - (void)setPieCenter:(CGPoint)pieCenter
@@ -462,6 +461,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         CFRelease(path);
         
         {
+            
             CALayer *labelLayer = [[obj sublayers] objectAtIndex:0];
             CGFloat interpolatedMidAngle = (interpolatedEndAngle + interpolatedStartAngle) / 2;        
             [CATransaction setDisableActions:YES];
